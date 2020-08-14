@@ -1,0 +1,12 @@
+[submodule "charts"]
+	path = charts
+	url = git@github.com:homelab-library/charts.git
+[submodule "containers/rundeck"]
+	path = containers/rundeck
+	url = git@github.com:homelab-library/rundeck.git
+[submodule "containers/zoneminder"]
+	path = containers/zoneminder
+	url = git@github.com:homelab-library/zoneminder.git
+[submodule "containers/base"]
+	path = containers/base
+	url = git@github.com:homelab-library/base.git

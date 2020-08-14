@@ -1,0 +1,7 @@
+{{ include "lib.deployment" . }}
+---
+{{ include "lib.service" . }}
+---
+{{ include "lib.ingress" . }}
+---
+{{ include "lib.volume" . }}
