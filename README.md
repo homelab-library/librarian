@@ -1,3 +1,3 @@
 # Homelab Library
 
-WIP
+Scripts and tools for management of the Homelab Library
