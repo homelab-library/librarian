@@ -9,7 +9,7 @@ add-container name:
     cd containers
     git submodule add "git@github.com:{{repo}}/{{name}}.git"
 
-new-container name: (template "container-init" name) (template "container" name)
+publish-container name:
     #!/usr/bin/env bash
     docker run --rm -it -u "$UID:$UID" \
         -v "$PWD/containers:/output" -v "$HOME/.config/hub:/.config/hub" \
@@ -32,3 +32,13 @@ template-shell:
     docker run --rm -it -u "$UID:$UID" \
         -v "$PWD/containers:/output" \
         $(docker build -q templates)
+
+build name:
+    #!/usr/bin/env bash
+    cd "containers/{{name}}/"
+    docker build -t "local-{{name}}" .
+
+run name:
+    #!/usr/bin/env bash
+    cd "containers/{{name}}/"
+    docker run --rm -it --env-file .env $(docker build -q .)

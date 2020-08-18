@@ -14,3 +14,7 @@
 	path = containers/base
 	url = git@github.com:homelab-library/base.git
 	branch = master
+[submodule "containers/synapse"]
+	path = containers/synapse
+	url = git@github.com:homelab-library/synapse.git
+	branch = master
