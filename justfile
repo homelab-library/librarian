@@ -38,7 +38,36 @@ build name:
     cd "containers/{{name}}/"
     docker build -t "local-{{name}}" .
 
+buildx name:
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    # docker buildx rm cross-builder
+    # docker buildx create --platform linux/arm64,linux/amd64,linux/arm/v7 --name cross-builder --append
+    docker buildx use cross-builder
+    cd "containers/{{name}}/"
+    docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 \
+        -t "{{name}}-local" .
+
 run name:
     #!/usr/bin/env bash
     cd "containers/{{name}}/"
-    docker run --rm -it --env-file .env $(docker build -q .)
+    touch .env
+    docker run --rm -it --env-file .env $(docker build -q .) sh
+
+runx name arch:
+    #!/usr/bin/env bash
+    cd "containers/{{name}}/"
+    touch .env
+    docker buildx build --platform "linux/{{arch}}" -t "{{name}}-{{arch}}-local" --load .
+    docker run --rm -it --env-file .env \
+        --net host \
+        -v $PWD/tmp:/data \
+        "{{name}}-{{arch}}-local" sh
+
+publish name: (buildx name)
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    cd "containers/{{name}}/"
+    docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 \
+        -t "homelabs/{{name}}:latest" --push .
