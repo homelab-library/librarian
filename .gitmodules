@@ -18,3 +18,7 @@
 	path = containers/synapse
 	url = git@github.com:homelab-library/synapse.git
 	branch = master
+[submodule "containers/keycloak"]
+	path = containers/keycloak
+	url = git@github.com:homelab-library/keycloak.git
+	branch = master

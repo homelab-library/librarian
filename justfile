@@ -61,6 +61,7 @@ runx name arch:
     touch .env
     docker buildx build --platform "linux/{{arch}}" -t "{{name}}-{{arch}}-local" --load .
     docker run --rm -it --env-file .env \
+        --privileged \
         --net host \
         -v $PWD/tmp:/data \
         "{{name}}-{{arch}}-local" sh
@@ -71,3 +72,14 @@ publish name: (buildx name)
     cd "containers/{{name}}/"
     docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 \
         -t "homelabs/{{name}}:latest" --push .
+
+setup:
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    docker buildx create --platform linux/arm64,linux/amd64,linux/arm/v7 --name cross-builder --append
+    docker buildx use cross-builder
+
+enable-qemu:
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
