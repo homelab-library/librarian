@@ -4,6 +4,11 @@ repo := "homelab-library"
     git submodule update --init --remote
     git submodule foreach -q 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; git checkout $branch'
 
+create-chart name:
+    #!/usr/bin/env bash
+    cd charts
+    just new "{{name}}"
+
 add-container name:
     #!/usr/bin/env bash
     cd containers
