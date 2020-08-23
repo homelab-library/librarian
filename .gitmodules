@@ -22,3 +22,7 @@
 	path = containers/keycloak
 	url = git@github.com:homelab-library/keycloak.git
 	branch = master
+[submodule "containers/static-site"]
+	path = containers/static-site
+	url = git@github.com:homelab-library/static-site.git
+	branch = master

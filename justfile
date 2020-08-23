@@ -24,7 +24,7 @@ publish-container name:
 
 template t target:
     #!/usr/bin/env bash
-    git init "containers/{{target}}"
+    #git init "containers/{{target}}"
     touch "containers/{{target}}/library.yml"
 
     docker run --rm -it -u "$UID:$UID" \
