@@ -24,7 +24,7 @@ publish-container name:
 
 template t target:
     #!/usr/bin/env bash
-    #git init "containers/{{target}}"
+    git init "containers/{{target}}"
     touch "containers/{{target}}/library.yml"
 
     docker run --rm -it -u "$UID:$UID" \
@@ -47,8 +47,6 @@ buildx name:
     #!/usr/bin/env bash
     set -Eeuo pipefail
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    # docker buildx rm cross-builder
-    # docker buildx create --platform linux/arm64,linux/amd64,linux/arm/v7 --name cross-builder --append
     docker buildx use cross-builder
     cd "containers/{{name}}/"
     docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 \
@@ -68,7 +66,6 @@ runx name arch:
     docker run --rm -it --env-file .env \
         --privileged \
         --net host \
-        -v $PWD/tmp:/data \
         "{{name}}-{{arch}}-local" sh
 
 publish name: (buildx name)
@@ -81,6 +78,7 @@ publish name: (buildx name)
 setup:
     #!/usr/bin/env bash
     set -Eeuo pipefail
+    docker buildx rm cross-builder || true
     docker buildx create --platform linux/arm64,linux/amd64,linux/arm/v7 --name cross-builder --append
     docker buildx use cross-builder
 

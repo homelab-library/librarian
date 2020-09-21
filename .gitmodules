@@ -26,3 +26,7 @@
 	path = containers/static-site
 	url = git@github.com:homelab-library/static-site.git
 	branch = master
+[submodule "containers/apacheds"]
+	path = containers/apacheds
+	url = git@github.com:homelab-library/apacheds.git
+	branch = master
