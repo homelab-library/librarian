@@ -1,11 +1,3 @@
-[submodule "charts"]
-	path = charts
-	url = git@github.com:homelab-library/charts.git
-	branch = master
-[submodule "containers/rundeck"]
-	path = containers/rundeck
-	url = git@github.com:homelab-library/rundeck.git
-	branch = master
 [submodule "containers/zoneminder"]
 	path = containers/zoneminder
 	url = git@github.com:homelab-library/zoneminder.git
@@ -29,8 +21,4 @@
 [submodule "containers/apacheds"]
 	path = containers/apacheds
 	url = git@github.com:homelab-library/apacheds.git
-	branch = master
-[submodule "containers/glusterfs"]
-	path = containers/glusterfs
-	url = git@github.com:homelab-library/glusterfs.git
 	branch = master
