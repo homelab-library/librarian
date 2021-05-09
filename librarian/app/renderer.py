@@ -5,6 +5,7 @@ from .data import Data
 import shutil
 import os
 import logging
+import mdformat
 
 log = logging.getLogger()
 
@@ -50,6 +51,11 @@ class Renderer(object):
                     log.info("Rendering template: %s", dst)
                     basename = Path(f"{basename}"[:-3])
                     result = self.render(src, data=data)
+                    if basename.suffix == ".md":
+                        result = mdformat.text(
+                            result,
+                            extensions={"tables", "gfm", "toc"}
+                        )
                     if result and not result.isspace():
                         with open(destination / basename, "w") as f:
                             f.write(result)
@@ -60,7 +66,8 @@ class Renderer(object):
                         log.info("Copying %s to %s", src, target)
                         shutil.copy(src, target)
                     else:
-                        log.info("Skipping %s since target alreaady exists", target)
+                        log.info(
+                            "Skipping %s since target alreaady exists", target)
                 else:
                     log.info("Copying %s to %s", src, dst)
                     shutil.copy(src, dst)
