@@ -1,0 +1,29 @@
+# {{ display_name }} Container Images
+
+{%- if autogen['image.yml'] %}
+
+[![Build Images](https://github.com/homelab-library/{{name}}/actions/workflows/image.yml/badge.svg)](https://github.com/homelab-library/{{name}}/actions/workflows/image.yml)
+
+{%- endif %}
+
+{% if disclaimer -%}
+{{ disclaimer }}
+{%- endif %}
+
+## About {{ display_name }}
+
+{% if upstream_link -%}
+[{{ display_name }}]({{ upstream_link }})
+{%- endif %}
+
+{{ description }}
+
+{% if (options.keys() | length) > 0 %}
+## Container Options
+
+| Environment | Description |
+| ----------- | ----------- |
+{% for (key, val) in options.items() -%}
+| {{ key }} | {{ val }} |
+{% endfor %}
+{% endif %}

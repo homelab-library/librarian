@@ -1,3 +1,4 @@
+{% if autogen['image.yml'] == True -%}
 name: Build Images
 
 on:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   {{ name }}:
-    name: Build {{ name }} Images
+    name: Build {{ display_name }} Images
 
     runs-on: ubuntu-latest
     steps:
@@ -24,8 +25,8 @@ jobs:
 
       - name: Docker Login
         env:
-          DOCKER_USERNAME: ${{ secrets.GHCR_USER }}
-          DOCKER_PASSWORD: ${{ secrets.GHCR_TOKEN }}
+          DOCKER_USERNAME: {% raw %}${{ secrets.GHCR_USER }}{% endraw %}
+          DOCKER_PASSWORD: {% raw %}${{ secrets.GHCR_TOKEN }}{% endraw %}
         run: |-
           docker login ghcr.io -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
@@ -35,3 +36,4 @@ jobs:
             --platform {{ platforms | join(',') }} \
             -t "{{ docker_base }}/{{ name }}:latest" \
             -t "{{ docker_base }}/{{ name }}:$(date '+%Y%m%d%H%M')" --push .
+{% endif %}

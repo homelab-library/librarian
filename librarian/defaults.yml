@@ -1,0 +1,18 @@
+---
+name: short-name
+display_name: Human Name
+disclaimer: 'This is packaged by homelab-library and is not maintained by the upstream project!'
+description: '(no description)'
+ports: []
+docker_base: 'ghcr.io/homelab-library'
+platforms:
+  - linux/amd64
+  - linux/arm/v7
+  - linux/arm64
+
+autogen:
+  image.yml: true
+
+options: {}
+
+upstream_link: ~
