@@ -1,10 +1,11 @@
 # {{ display_name }} Container Images
 
+[![Github](https://img.shields.io/badge/repo-github-brightgreen)](https://github.com/homelab-library/{{name}}/)
 {%- if autogen['image.yml'] %}
-
 [![Build Images](https://github.com/homelab-library/{{name}}/actions/workflows/image.yml/badge.svg)](https://github.com/homelab-library/{{name}}/actions/workflows/image.yml)
-
 {%- endif %}
+[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://raw.githubusercontent.com/homelab-library/{{name}}/master/LICENSE-MIT)
+[![Apache License](https://img.shields.io/badge/license-Apache-blue)](https://raw.githubusercontent.com/homelab-library/{{name}}/master/LICENSE-APACHE)
 
 {% if disclaimer -%}
 {{ disclaimer }}
