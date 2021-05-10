@@ -33,9 +33,9 @@ class Git(object):
 
     @staticmethod
     async def push_containers():
-        await shell("""git submodule foreach -q 'git add --all .'""")
-        await shell("""git submodule foreach -q 'git commit -m "Automated update"'""")
-        await shell("""git submodule foreach -q 'git push'""")
+        await shell("""git submodule foreach -q 'git add --all . || true'""")
+        await shell("""git submodule foreach -q 'git commit -m "Automated update" || true'""")
+        await shell("""git submodule foreach -q 'git push || true'""")
 
     @staticmethod
     async def init_container(name: str):
